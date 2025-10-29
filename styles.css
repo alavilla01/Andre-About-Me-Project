@@ -1,39 +1,38 @@
 .header {
-    background-color: aqua;
+  background-color: aqua;
 }
 
-.domine-h1{
-    font-family: "Domine", serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
+.domine-text {
+  font-family: "Domine", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .aboutMe {
-    background-color: yellow;
+  background-color: yellow;
 }
 
 .skills {
-    background-color: lightcoral;
+  background-color: lightcoral;
 }
 
 .skill-item-color {
-    background-color: pink;
+  background-color: pink;
 }
 
 .experience {
-    background-color: lightgreen;
+  background-color: lightgreen;
 }
 
 .experience-item-color {
-    background-color: greenyellow;
+  background-color: greenyellow;
 }
 
 .projects {
-    background-color: lightsalmon;
+  background-color: lightsalmon;
 }
 
 .project-item-color {
-    background-color: gold;
+  background-color: gold;
 }
-

@@ -1,4 +1,409 @@
+:root {
+  /* change the max-width as appropriate for your desired layout on larger screens */
+  /* if you have a lot of content, you may want to increase this value */
+  /* 768px: small tablet */
+  /* 1024px: large tablet */
+  /* 1280px: desktop */
+  /* 1440px: large desktop */
+  --max-width: 1024px;
+  /* set a responsive width less than 100% to add a border to the container */
+  /* 90% sets a left and right margin of 5% */
+  --container-width: 90%;
+  --nav-width: 100%;
+  /* --body-bg-color: white; */
+  /* change the bg-color as appropriate for your design or images */
+  --body-bg-color: #c9a75e;
+  --body-color: hsl(210, 11%, 15%);
+  --main-bg-color: hsl(210, 17%, 98%);
+  --main-color: hsl(210, 11%, 15%);
+  --nav-bg-color: hsl(210, 17%, 98%);
+  --nav-color: hsl(210, 11%, 15%);
+  /* nav-height must be manually set to a specified value, 
+  since the scroll-margin of the internal links is set to the nav-height */
+  /* for multi-line nav items, increase this value */
+  --nav-height: 5rem;
+  --header-color: hsl(210, 17%, 98%);
+  --header-bg-color: aqua;
+  --secondary-color: rgba(108, 117, 125, 1);
+  --card-bg-color: hsl(210, 17%, 98%);
+  --card-color: hsl(210, 11%, 15%);
+  --card-border-color: hsla(0, 0%, 0%, 0.167);
+  --card-border-radius: 0.5rem;
+  /* for no shadow: --card-shadow-color: hsla(0, 0%, 0%, 0); */
+  --card-shadow-color: hsla(0, 0%, 0%, 0.167);
+  --card-shadow-offset-x: 0.1rem;
+  --card-shadow-offset-y: 0.1rem;
+  --card-shadow-blur-radius: 0.5rem;
+  --card-shadow-spread-radius: 0.5rem;
+  /* spacing between column elements */
+  --gutter: 0.75rem;
+  /* increase gutter for larger screens */
+  --gutter-md: 1.5rem;
+}
+
+body {
+  background-color: var(--body-bg-color);
+  color: var(--body-color);
+  font:
+    16px "Domine",
+    serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  /* a large bottom margin allows link navigation to the contacts section 
+  to be scrolled into view at the top of the page */
+  margin-bottom: 50%;
+  margin-bottom: 100vh;
+}
+
+h1 {
+  /* using em makes the font size responsive to the viewport width */
+  text-align: center;
+  font-size: 2em;
+  margin: 0;
+}
+h2 {
+  text-align: center;
+  font-size: 1.75em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+article {
+  padding: 2em;
+  margin-bottom: 0.5rem;
+}
+figure {
+  padding: 0 2em;
+}
+/* remove default margin on the last paragraph since we are adding
+padding to the article */
+p:last-of-type {
+  margin-bottom: 0;
+}
+/*----------------------------------------------*/
+/* navbar customizations                        */
+/*----------------------------------------------*/
+/*
+since the navbar is position fixed, add a top scroll-margin so the window will be 
+position below the navbar at each nav-link
+is
+*/
+#header,
+#bio,
+#skills,
+#experience,
+#projects {
+  scroll-margin: var(--nav-height) 0 0 0;
+}
+.my-nav {
+  width: 100%;
+  height: var(--nav-height);
+  background-color: var(--nav-bg-color);
+  color: var(--nav-color);
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid black;
+}
+/*
+override bootstrap so navbar-collapse doesn't grow with content
+*/
+.navbar-collapse {
+  flex-grow: 0;
+}
+/* increase margin and padding on the navbar menu that is displayed 
+after the toggle button is clicked */
+.navbar-collapse.show {
+  margin: 1.5rem 0 0rem 0;
+  padding: 0.5rem;
+}
+/*----------------------------------------------------------*/
+/* define font size that is responsive to the viewport width */
+/*----------------------------------------------------------*/
+.my-container,
+.my-nav-container {
+  display: flex;
+  max-width: var(--max-width);
+  /* this gives a margin-left and margin-right of 5% */
+  width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+  /*
+  defining the container type sets the value of cqw and cqh,
+  which are used in the clamp function
+  */
+  container-type: inline-size;
+  /* 
+    use the font-size calculator web site:
+      https://www.marcbacon.com/tools/clamp-calculator/
+    these are the chosen design parameters used in the web form:
+      at width 500, font-size: 0.9rem;
+      at width 1024, font-size: 1.2rem;
+    and the clamp function is generated
+    replace "vw" with "cqw" to use the container width
+
+    to customize, change values entered into the web form
+    */
+  font-size: clamp(0.9rem, 0.614rem + 0.916cqw, 1.2rem);
+  .btn {
+    margin: 1rem 0;
+  }
+}
+.my-nav-container {
+  flex-direction: row;
+  padding: 0rem 2em;
+  /* make navbar links right-aligned */
+  justify-content: space-between;
+  background-color: var(--nav-bg-color);
+  /*
+  javascript is used to add the active class to the clicked nav-link
+  */
+  .nav-link.active {
+    font-weight: bold;
+  }
+}
+
+.my-brand-container {
+  /* use a flexbox to align the navbar links to the right */
+  display: flex;
+  /* this pushes the brand to the right and the links to the left */
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  /* wrap the bootstrap span height of 1.5rem */
+  button {
+    height: 2em;
+  }
+}
+/*
+The <main> content is aligned in one column from top to bottom with no wrapping.
+To allow items to flow horizontally, need to wrap them in an element with class 
+my-row which has display: flex, flex-direction: row and flex-wrap: wrap.
+*/
+.my-container {
+  flex-direction: column;
+  color: var(--main-color);
+  background-color: var(--main-bg-color);
+}
+header.my-container {
+  padding-bottom: var(--gutter);
+}
+.my-page-header {
+  /*
+  the <header> element is display: block by default, units of
+  vw and cqw are the same since width is 100%
+  */
+  /* use same clamp function as the other containers */
+  font-size: clamp(0.9rem, 0.614rem + 0.916vw, 1.2rem);
+  margin: var(--nav-height) 0 0 0;
+  /* this makes the height of the header dependent on the viewport width */
+  padding: 2vw 0;
+  background-color: var(--header-bg-color);
+  color: var(--header-color);
+  text-align: center;
+}
+/* this is equivalent to bootstrap's .fixed-top class */
+.my-fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* the fixed navbar must be on a higher z level than the content */
+  z-index: 2;
+}
+/* this is equivalent to bootstrap's card class */
+.my-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  color: var(--card-color);
+  background-color: var(--card-bg-color);
+  word-wrap: break-word;
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow-offset-x) var(--card-shadow-offset-y)
+    var(--card-shadow-blur-radius) var(--card-shadow-spread-radius)
+    var(--card-shadow-color);
+}
+/* this is equivalent to bootstrap's .justify-content-center class */
+.horizontal-center {
+  display: flex;
+  justify-content: center;
+}
+/* this is equivalent to bootstrap's .align-items-center class */
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* this is equivalent to bootstrap's .rounded-circle class */
+.circle-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+}
+/*
+ this is equivalent to bootstrap's .img-fluid class
+ which uses width: 100% and height: auto.
+ if the image has height > width, object-fit: cover will crop the image
+ */
+.image-cover {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+/* 
+content in the .bio and .education articles are put in lists because
+it naturally groups related items together
+*/
+.my-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  word-wrap: break-word;
+  line-height: 1.4;
+  li {
+    margin-bottom: 1rem;
+  }
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.my-footer {
+  /*
+  the <footer> element is display: block by default, units of
+  vw and cqw are the same since width is 100%
+  */
+  /* use same clamp function as the other containers */
+  font-size: clamp(0.9rem, 0.614rem + 0.916vw, 1.2rem);
+  padding: 2em 0;
+  margin: 0;
+  /* background-color: var(--header-bg-color); */
+  /* background-color: var(--body-bg-color); */
+  color: var(--header-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  /* if there are several items in the footer, use a <ul> element */
+  p {
+    margin: 0;
+  }
+}
+footer.my-container {
+  padding-bottom: 1rem;
+  border-radius: 0 0 var(--card-border-radius) var(--card-border-radius);
+}
+/*--------------------------------------------------------------------*/
+/* the rest is the replacement for the bootstrap grid system          */
+/*--------------------------------------------------------------------*/
+.my-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* 
+    by setting a negative margin on the parent row element, 
+    and equally-sized positive padding on each child column element,
+    a gutter between children is created without extras spacing
+    on the ends
+    */
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0;
+}
+.my-row:last-child {
+  margin-bottom: 0;
+}
+.my-col-6,
+.my-col-12 {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: var(--gutter);
+}
+.my-col-6:last-child,
+.my-col-md-6:last-child,
+.my-col-12:last-child,
+.my-col-md-12:last-child {
+  padding-bottom: 0;
+}
+.my-col-12 {
+  width: 100%;
+}
+.my-col-6 {
+  width: 50%;
+}
+
+/*
+Use a media query to reduce the bio figure width for small screens.  
+If there are other figures that have aspect ratio (w/h) > 0.8 or so,
+those figure widths should be also be reduced.
+*/
+@media only screen and (max-width: 767px) {
+  .bio {
+    figure {
+      width: 80%;
+      margin: 1em auto 2em auto;
+      padding: 0 2rem;
+    }
+  }
+}
+/*
+use a media query to set the column widths for
+medium screen and up to 2 columns across
+*/
+@media only screen and (min-width: 768px) {
+  .my-row {
+    margin: 0 calc(-1 * var(--gutter-md));
+  }
+
+  .my-col-12,
+  .my-col-md-12 {
+    padding: var(--gutter-md);
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .my-col-6,
+  .my-col-md-6 {
+    padding: var(--gutter-md);
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  .my-col-6:last-child,
+  .my-col-12:last-child,
+  .my-col-md-6:last-child,
+  .my-col-md-12:last-child {
+    padding-bottom: 0;
+  }
+}
+
+/*
+use a media query to increase the container width
+for small screens (phones)
+*/
+@media only screen and (max-width: 500px) {
+  .my-container,
+  .my-nav-container {
+    width: 100%;
+  }
+}
+
 .header {
+  background-color: aqua;
+  margin-top: var(--nav-height);
+}
+.footer {
+  background-color: aqua;
+}
+.bio {
   background-color: aqua;
 }
 
@@ -9,7 +414,7 @@
   font-style: normal;
 }
 
-.aboutMe {
+.bio {
   background-color: yellow;
 }
 
